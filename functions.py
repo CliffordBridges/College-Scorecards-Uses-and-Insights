@@ -66,11 +66,13 @@ def create_logistic_regression(df, predictor_columns, predicted_column):
     except:
         model_log = logreg.fit(np.array(X_train).reshape(-1,1), y_train)
         
-    # Add a new column to the given data frame with predicted values
+    # Add new columns to the given data frame with predicted values and probability of correct predictions
     try:
         df['Predicted_'+predicted_column] = logreg.predict(X)
+        df['ProbCorrect_Predicted_'+predicted_column] = logreg.predict_proba(X)[:,1]
     except:
         df['Predicted_'+predicted_column] = logreg.predict(np.array(X).reshape(-1,1))
+        df['ProbCorrect_Predicted_'+predicted_column] = logreg.predict_proba(np.array(X).reshape(-1,1))[:,1]
     
     return logreg
 
