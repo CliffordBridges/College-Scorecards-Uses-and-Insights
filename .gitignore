@@ -105,3 +105,6 @@ venv.bak/
 
 # Large Excel file explaining variable names
 ~$CollegeScorecardDataDictionary.xlsx
+
+# Original/Raw (Large~265MB) Data Set
+CollegeScorecard_Raw_Data.zip
