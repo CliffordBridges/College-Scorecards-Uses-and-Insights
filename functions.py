@@ -1,6 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# In[5]:
+
+
+import numpy as np
+import pandas as pd
+import pandas_profiling
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#from matplotlib import scatter_matrix
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import RobustScaler
+from sklearn.linear_model import Lasso, Ridge, LinearRegression, LogisticRegression
+from sklearn.model_selection import train_test_split
+
+
 # In[3]:
 
 
@@ -32,6 +49,11 @@ def create_logistic_regression(df, predictor_columns, predicted_column):
     X = df[predictor_columns]
     y = df[predicted_column]
     
+    # Scale the data using Robust Scaler
+    scale = RobustScaler()
+    transformed = scale.fit_transform(X)
+    X = pd.DataFrame(transformed, columns = X.columns)
+    
     # Create Train and Test Data
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
     
@@ -46,12 +68,11 @@ def create_logistic_regression(df, predictor_columns, predicted_column):
         
     # Add a new column to the given data frame with predicted values
     try:
-        df_play['Predicted_'+predicted_column] = logreg.predict(X)
+        df['Predicted_'+predicted_column] = logreg.predict(X)
     except:
-        df_play['Predicted_'+predicted_column] = logreg.predict(np.array(X).reshape(-1,1))
+        df['Predicted_'+predicted_column] = logreg.predict(np.array(X).reshape(-1,1))
     
     return logreg
-
 
 # In[ ]:
 
