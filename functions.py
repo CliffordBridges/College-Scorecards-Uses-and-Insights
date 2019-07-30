@@ -74,8 +74,38 @@ def create_logistic_regression(df, predictor_columns, predicted_column):
     
     return logreg
 
-# In[ ]:
 
 
+def back_fill_from_year(df, year):
+    """
+    Fills every school's LOCALE and CURROPER values with its year values if it exists. 
+    Otherwise, remains np.NaN
+    
+    Parameters:
+    -----------
+    df: dataframe
+    
+    year: int
+        year to choose backfill values
+       
+    Returns:
+    --------
+    df: dataframe
+        df has been altered by the backfilled values
+    """
+    fill_values = {np.NaN: np.NaN}
+    for name in df.loc[df.year==year].INSTNM:
+        fill_values[name] = {'LOCALE': df.loc[(df.INSTNM==name)&(df.year==year)].LOCALE, 
+                             'CURROPER': df.loc[(df.INSTNM==name)&(df.year==year)].CURROPER}
+    
+    for name in df.loc[df.year!=year].INSTNM:
+        if fill_values.get(name):
+            pass
+        else:
+            fill_values[name]={'LOCALE': np.NaN, 'CURROPER': np.NaN}
+    
+    df.LOCALE = df.INSTNM.map(lambda name: fill_values.get(name)['LOCALE'])
+    df.CURROPER = df.INSTNM.map(lambda name: fill_values.get(name)['CURROPER'])
 
+    return df
 
