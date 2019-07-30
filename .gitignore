@@ -102,3 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Original/Raw (Large~265MB) Data Set
+CollegeScorecard_Raw_Data.zip
