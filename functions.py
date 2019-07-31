@@ -139,3 +139,26 @@ def read_in_CollegeScorecard(columns):
         sheets[year]['YEAR'] = pd.to_datetime(sheets[year]['YEAR'], format='%Y')
     return sheets
 
+
+
+def concatenate_all_sheets(sheets):
+    """
+    Concatenates DataFrames in a dictionary of DataFrames.
+    
+    Parameters:
+    -----------
+    sheets: dictionary,
+        key value pairs are year and DataFrame associated to that year
+        
+    Returns:
+    --------
+    full_df: DataFrame
+    """
+    for year, df in sheets.items():
+        df['iyear'] = df['YEAR']
+        if year==1996:
+            full_df = df.set_index([df.index, 'iyear'])
+        else:
+            full_df = pd.concat([full_df, df.set_index([df.index, 'iyear'])])
+    return full_df
+
