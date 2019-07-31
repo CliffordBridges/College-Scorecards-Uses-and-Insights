@@ -105,12 +105,14 @@ def back_fill_from_year(df, year):
     
     for name in df.loc[df.YEAR!=year].INSTNM.unique():
         fill_values[name] = fill_values.get(name, {'LOCALE': np.NaN, 'CURROPER': np.NaN, 'CONTROL': np.NaN})
+        
+    copy_df = df.drop(['LOCALE', 'CURROPER', 'CONTROL'], axis=1)
     
-    df.LOCALE = df.INSTNM.map(lambda name: fill_values[name]['LOCALE'])
-    df.CURROPER = df.INSTNM.map(lambda name: fill_values[name]['CURROPER'])
-    df.CONTROL = df.INSTNM.map(lambda name: fill_values[name]['CONTROL'])
+    copy_df['LOCALE'] = df.INSTNM.map(lambda name: fill_values[name]['LOCALE'])
+    copy_df['CURROPER'] = df.INSTNM.map(lambda name: fill_values[name]['CURROPER'])
+    copy_df['CONTROL'] = df.INSTNM.map(lambda name: fill_values[name]['CONTROL'])
     
-    return df
+    return copy_df
 
 
 def read_in_CollegeScorecard(columns):
