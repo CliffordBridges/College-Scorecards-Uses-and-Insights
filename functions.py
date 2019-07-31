@@ -162,3 +162,23 @@ def concatenate_all_sheets(sheets):
             full_df = pd.concat([full_df, df.set_index([df.index, 'iyear'])])
     return full_df
 
+
+
+def quick_clean(df, columns=None):
+    """
+    drops rows with NaNs in the columns given. 
+    If no columns are given, drops all rows with any nans.
+    
+    Parameters:
+    -----------
+    df: DataFrame
+    
+    columns: list
+    
+    Returns:
+    --------
+    df_nonan: dataframe
+    """
+    df_unsuppressed = df.replace('PrivacySuppressed', np.NaN)
+    df_nonan = df.dropna(subset=columns)
+    return df_nonan
