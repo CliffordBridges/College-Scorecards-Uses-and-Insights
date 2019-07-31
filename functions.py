@@ -111,3 +111,30 @@ def back_fill_from_year(df, year):
 
     return df
 
+
+def read_in_CollegeScorecard(columns):
+    """
+    Read in columns from files from inside the zip file. 
+    Also assign a year to each DataFrame.
+    
+    Parameters:
+    -----------
+    columns: list,
+        columns is a list of strings matching the desired column headers
+        
+    Returns:
+    --------
+    sheets: dictionary,
+        sheets is a dictionary of year:DataFrame pairs
+    """
+    
+    zip_file = ZipFile('CollegeScorecard_Raw_Data.zip')
+    
+    sheets = {}
+    for year in range(1996, 2018):
+        acyear = str(year)+'_'+str(year+1)[-2:]
+        sheets[year] = pd.read_csv(zip_file.open('CollegeScorecard_Raw_Data/MERGED'+acyear+'_PP.csv'), usecols=columns)
+        sheets[year]['YEAR'] = year
+        sheets[year]['YEAR'] = pd.to_datetime(sheets[year]['YEAR'], format='%Y')
+    return sheets
+
