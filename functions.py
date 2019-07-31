@@ -16,6 +16,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import RobustScaler
 from sklearn.linear_model import Lasso, Ridge, LinearRegression, LogisticRegression
 from sklearn.model_selection import train_test_split
+from zipfile import ZipFile
 
 
 # In[3]:
