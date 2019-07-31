@@ -81,7 +81,7 @@ def create_logistic_regression(df, predictor_columns, predicted_column):
 
 def back_fill_from_year(df, year):
     """
-    Fills every school's LOCALE and CURROPER values with its year values if it exists. 
+    Fills every school's LOCALE, CONTROL, and CURROPER values with its year values if it exists. 
     Otherwise, remains np.NaN
     
     Parameters:
@@ -100,13 +100,15 @@ def back_fill_from_year(df, year):
     fill_values = {}
     for name in df.INSTNM.unique():
         fill_values[name] = {'LOCALE': df.loc[(df.INSTNM==name)].LOCALE.values[0], 
-                             'CURROPER': df.loc[(df.INSTNM==name)].CURROPER.values[0]}
+                             'CURROPER': df.loc[(df.INSTNM==name)].CURROPER.values[0],
+                             'CONTROL': df.loc[(df.INSTNM==name)].CONTROL.values[0]}
     
     for name in df.loc[df.YEAR!=year].INSTNM.unique():
-        fill_values[name] = fill_values.get(name, {'LOCALE': np.NaN, 'CURROPER': np.NaN})
+        fill_values[name] = fill_values.get(name, {'LOCALE': np.NaN, 'CURROPER': np.NaN, 'CONTROL': np.NaN})
     
     df.LOCALE = df.INSTNM.map(lambda name: fill_values[name]['LOCALE'])
     df.CURROPER = df.INSTNM.map(lambda name: fill_values[name]['CURROPER'])
+    df.CONTROL = df.INSTNM.map(lambda name: fill_values[name]['CONTROL'])
     
     return df
 
