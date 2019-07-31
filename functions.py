@@ -182,5 +182,5 @@ def quick_clean(df, columns=None):
     df_nonan: dataframe
     """
     df_unsuppressed = df.replace('PrivacySuppressed', np.NaN)
-    df_nonan = df.dropna(subset=columns)
+    df_nonan = df_unsuppressed.dropna(subset=columns)
     return df_nonan
