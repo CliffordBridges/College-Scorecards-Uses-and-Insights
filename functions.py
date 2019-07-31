@@ -86,30 +86,28 @@ def back_fill_from_year(df, year):
     
     Parameters:
     -----------
-    df: dataframe
+    df: DataFrame
+        DataFrames do not yet have a year column, but they are named by year.
     
     year: int
         year to choose backfill values
        
     Returns:
     --------
-    df: dataframe
+    df: DataFrame
         df has been altered by the backfilled values
     """
-    fill_values = {np.NaN: np.NaN}
-    for name in df.loc[df.year==year].INSTNM:
-        fill_values[name] = {'LOCALE': df.loc[(df.INSTNM==name)&(df.year==year)].LOCALE, 
-                             'CURROPER': df.loc[(df.INSTNM==name)&(df.year==year)].CURROPER}
+    fill_values = {}
+    for name in df.INSTNM.unique():
+        fill_values[name] = {'LOCALE': df.loc[(df.INSTNM==name)].LOCALE.values[0], 
+                             'CURROPER': df.loc[(df.INSTNM==name)].CURROPER.values[0]}
     
-    for name in df.loc[df.year!=year].INSTNM:
-        if fill_values.get(name):
-            pass
-        else:
-            fill_values[name]={'LOCALE': np.NaN, 'CURROPER': np.NaN}
+    for name in df.loc[df.YEAR!=year].INSTNM.unique():
+        fill_values[name] = fill_values.get(name, {'LOCALE': np.NaN, 'CURROPER': np.NaN})
     
-    df.LOCALE = df.INSTNM.map(lambda name: fill_values.get(name)['LOCALE'])
-    df.CURROPER = df.INSTNM.map(lambda name: fill_values.get(name)['CURROPER'])
-
+    df.LOCALE = df.INSTNM.map(lambda name: fill_values[name]['LOCALE'])
+    df.CURROPER = df.INSTNM.map(lambda name: fill_values[name]['CURROPER'])
+    
     return df
 
 
