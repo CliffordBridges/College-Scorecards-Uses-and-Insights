@@ -105,3 +105,7 @@ venv.bak/
 
 
 tuition_data
+# Large Excel file explaining variable names
+~$CollegeScorecardDataDictionary.xlsx
+CollegeScorecard_Raw_Data.zip
+
