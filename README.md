@@ -34,3 +34,9 @@ This .pkl is in [Data](https://github.com/CliffordBridges/College-Scorecards-Use
 
 ### Data Cleaning
 
+Through the years since 1996, more and more information has been tracked about colleges and universities. 
+This leads to increasing number of ```NaN``` values as we go backwards through time in the data. 
+Some of these values can be filled, such as whether or not the insitution is currently operational, while many other parameters can not, such as 3 year default rates for students in 1997. 
+Due to this, the cleaning in the project involves dropping many rows or focusing on recent data. 
+All cleaning can be found in the appropriate notebook in [Notebook](https://github.com/CliffordBridges/College-Scorecards-Uses-and-Insights/tree/ridge_regression/notebooks).
+
