@@ -45,5 +45,12 @@ All cleaning can be found in the appropriate notebook in [notebooks](https://git
 With such a high natural variance in most of the features like tuition cost, faculty pay, etc., we found difficulties in identifying trends upon visualizing the data. 
 For this reason, we chose several intuitively related features to begin this analysis.
 
+### Regression
 
+
+
+## Summary of Files
+
+All details from regression analysis are in the technical notebook in the [notebooks](https://github.com/CliffordBridges/College-Scorecards-Uses-and-Insights/tree/ridge_regression/notebooks) folder. 
+The pickle file containing the data on which anaylis was run is in the [data](https://github.com/CliffordBridges/College-Scorecards-Uses-and-Insights/tree/ridge_regression/data) folder.
 
