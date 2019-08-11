@@ -103,8 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+
+tuition_data
 # Large Excel file explaining variable names
 ~$CollegeScorecardDataDictionary.xlsx
-
-# Original/Raw (Large~265MB) Data Set
 CollegeScorecard_Raw_Data.zip
+
